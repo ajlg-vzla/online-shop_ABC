@@ -1,0 +1,43 @@
+<?php include VIEWS . 'header.phtml'; ?>
+    <br>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn navbar-right" onclick="window.location.href = '../../login';">Sign in</button>
+            </div>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                        <div class="panel-heading">Please input new values...</div>
+                        <div class="panel-body">
+                            <form action="../saveUpdate" method="post">
+                                <div class="form-group">
+                                    <label for="id">Id:</label>
+                                    <input type="text" class="form-control" name="id" id="id" value="<?php echo $parameters['id'] ?>" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">Price:</label>
+                                    <input type="text" class="form-control" name="price" id="price" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rating">Rating:</label>
+                                    <input type="text" class="form-control" name="rating" id="rating" value="">
+                                </div>
+                                <input class="btn btn-default" type="submit" value="Update">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+    </div> 
+<?php include VIEWS . 'footer.phtml'; ?>
