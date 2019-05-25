@@ -25,13 +25,14 @@ class LoginC extends MainC
         if(empty($user))
         {
             $controller = new errorC;
-            $controller->showError('Incorrect username or password');
+            $controller->showError('Login failed, please try again...');
         }
         else
         {
-            header('Location: ../products/read');
+            $loggedUser = new User($user[0]->name, $user[0]->balance);
+            $controller = new productsC;
+            $controller->read($loggedUser);
+            
         }
-
-        var_dump($user);
     }
 }

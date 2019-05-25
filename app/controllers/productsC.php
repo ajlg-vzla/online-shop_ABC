@@ -24,13 +24,21 @@ class ProductsC extends MainC
         header('Location: read');
     }
 
-    public function read()
+    public function read($loggedUser=[])
     {
         $products = $this->productModel->readProducts();
         $parameters = 
         [
             'products' => $products
         ];
+        if(!empty($loggedUser))
+        {
+            $parameters = 
+            [
+                'products' => $products,
+                'user' => $loggedUser
+            ];
+        }
         $this->view('products/read', $parameters);
     }
 
