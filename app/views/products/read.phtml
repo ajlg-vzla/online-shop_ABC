@@ -1,17 +1,26 @@
 <?php include VIEWS . 'header.phtml'; ?>
+    <script>history.pushState(null, '', '/online-shop_ABC/products/read');    </script>
     <br>
     <div class="container">
 
+    <?php
+        /* if(!empty($_SESSION['loggedUser']))
+            {
+                echo "<div class='masthead'><h3 class='text-muted'>Hello ".$_SESSION['loggedUser']->name."!</h3></div>";
+            } */
+    ?>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
             <?php
-            if(!empty($parameters['user']))
+            if(!empty($_SESSION['loggedUser']))
             {
-                echo "<p class='navbar-right'>Hello ".$parameters['user']->name."</p>";
+                echo "<button type='button' class='btn btn-default navbar-btn navbar-left' onclick='window.location.href=\"../shoppingCart/read\"'><span class='glyphicon glyphicon-shopping-cart'></span></button>";
+                echo "<p class='navbar-text'>Signed in as ".$_SESSION['loggedUser']->name."</p>";
+                echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../log/logout\"'>Log out</button>";
             }
             else
             {
-                echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../login\"'>Sign in</button>";
+                echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../log/login\"'>Log in</button>";
             }
             ?>
             </div>
@@ -37,15 +46,19 @@
                                 <td><?php echo $product->price ?></td>
                                 <td><?php echo $product->rating ?></td>
                                 <td>
-                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'update/<?php echo $product->id ?>';">
-                                        <span class="glyphicon glyphicon-edit">
+                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'update/<?php echo $product->id; ?>'">
+                                        <span class="glyphicon glyphicon-edit"></span>
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id ?>';">
-                                        <span class="glyphicon glyphicon-minus-sign">
+                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id; ?>'">
+                                        <span class="glyphicon glyphicon-minus-sign"></span>
                                     </button>
-                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id ?>';">
-                                        <span class="glyphicon glyphicon-shopping-cart">
-                                    </button>
+                                    <?php
+                                    if(!empty($_SESSION['loggedUser']))
+                                    {
+                                        echo "<button type='button' class='btn btn-default' onclick=\"window.location.href='../shoppingCart/create/".$product->id."';\">";
+                                        echo "<span class='glyphicon glyphicon-shopping-cart'></span></button>";
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -53,7 +66,8 @@
                     </table>
                 </div>
                 <button type="button" class="btn btn-default" onclick="window.location.href = 'create';">
-                    <span class="glyphicon glyphicon-plus-sign">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                </button>
             </div>
         </div>
     </div>

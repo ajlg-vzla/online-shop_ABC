@@ -1,0 +1,72 @@
+<?php include VIEWS . 'header.phtml'; ?>
+<script>history.pushState(null, '', '/online-shop_ABC/shoppingCart/read');    </script>
+<br>
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <?php
+        if(!empty($_SESSION['loggedUser']))
+        {
+            echo "<button type='button' class='btn btn-default navbar-btn navbar-left' onclick='window.location.href=\"../products/read\"'><span class='glyphicon glyphicon-tag'></span></button>";
+            echo "<p class='navbar-text'>Signed in as ".$_SESSION['loggedUser']->name."</p>";
+            echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../log/logout\"'>Log out</button>";
+        }
+        else
+        {
+            echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../log/login\"'>Log in</button>";
+        }
+        ?>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Shopping Cart</div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Unit(s)</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($parameters['products'] as $product) : ?>
+                        <tr>
+                            <td><?php echo $product->name; ?></td>
+                            <td><?php echo $product->units; ?></td>
+                            <td><?php echo $product->price; ?></td>
+                            <td>
+                                <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id; ?>'">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                </button>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <?php endforeach; ?>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <?php
+                            $total = 0;
+                            foreach($parameters['products'] as $product) {$total = $total + $product->price;}
+                            echo $total;
+                            ?>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading"><a class="btn btn-success" href="products/read" role="button">Pay</a></div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<?php include VIEWS . 'footer.phtml'; ?>

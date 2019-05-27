@@ -1,13 +1,13 @@
 <?php
 
-class LoginC extends MainC
+class LogC extends MainC
 {
     public function __construct()
     {
-        $this->loginModel = $this->model('Login');
+        $this->logModel = $this->model('log');
     }
 
-    public function index()
+    public function login()
     {
         $this->view('login');
     }
@@ -20,7 +20,7 @@ class LoginC extends MainC
             'password' => $_REQUEST['password']
         ];
 
-        $user = $this->loginModel->tryLogin($credentials);
+        $user = $this->logModel->tryLogin($credentials);
 
         if(empty($user))
         {
@@ -29,10 +29,17 @@ class LoginC extends MainC
         }
         else
         {
-            $loggedUser = new User($user[0]->name, $user[0]->balance);
+            $loggedUser = new User($user[0]->id, $user[0]->name, $user[0]->balance);
             $controller = new productsC;
+            $_SESSION['loggedUser'] = $loggedUser;
             $controller->read($loggedUser);
             
         }
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['loggedUser']);
+        header('Location: ../products/read');
     }
 }

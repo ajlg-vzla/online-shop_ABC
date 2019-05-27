@@ -21,6 +21,8 @@ require_once(CONTROLLERS.'errorC.php');
 require_once(ENTITIES.'user.php');
 require_once(ENTITIES.'shoppingCart.php');
 
+session_start();
+
 try{
     Router::route(new Request);
 }catch(Exception $e){

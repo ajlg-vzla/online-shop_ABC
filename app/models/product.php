@@ -18,7 +18,7 @@ class Product
         return $this->db->countRows();
     }
 
-    public function readProducts()
+    public function read()
     {
         $this->db->query("SELECT * FROM products");
         return $this->db->results();
