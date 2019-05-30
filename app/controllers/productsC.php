@@ -18,9 +18,9 @@ class ProductsC extends MainC
         [
             'name' => $_REQUEST['name'],
             'price' => $_REQUEST['price'],
-            'rating' => $_REQUEST['rating']
         ];
         $this->productModel->createProduct($product);
+        $this->productModel->createProductRating();
         header('Location: read');
     }
 
@@ -33,10 +33,18 @@ class ProductsC extends MainC
         ];
         if(!empty($_SESSION['loggedUser']))
         {
+            $ratingsResults = $this->productModel->findRatings($_SESSION['loggedUser']->id);
+            $ratings = [];
+            $i=0;
+            foreach($ratingsResults as $result) {
+                $ratings[$i] = new Rating($result->idUser, $result->idProduct, $result->thumbsUp, $result->thumbsDown, $result->average);
+                $i++;
+            }
             $parameters = 
             [
                 'products' => $products,
-                'user' => $_SESSION['loggedUser']
+                'user' => $_SESSION['loggedUser'],
+                'ratings' => $ratings
             ];
         }
         $this->view('products/read', $parameters);
@@ -82,4 +90,20 @@ class ProductsC extends MainC
         $this->productModel->deleteProduct($product);
         $this->read();
     }
+
+
+    public function thumbsUp($id)
+    {
+        $this->productModel->thumbsUp($id);
+        $this->productModel->registerUserThumbs($id, $_SESSION['loggedUser']->id);
+        $this->read();
+    }
+
+    public function thumbsDown($id)
+    {
+        $this->productModel->thumbsDown($id);
+        $this->productModel->registerUserThumbs($id, $_SESSION['loggedUser']->id);
+        $this->read();
+    }
+
 }

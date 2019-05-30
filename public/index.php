@@ -20,6 +20,7 @@ require_once(CONTROLLERS.'errorC.php');
 
 require_once(ENTITIES.'user.php');
 require_once(ENTITIES.'shoppingCart.php');
+require_once(ENTITIES.'rating.php');
 
 session_start();
 

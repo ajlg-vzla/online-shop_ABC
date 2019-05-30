@@ -8,7 +8,7 @@
         if(!empty($_SESSION['loggedUser']))
         {
             echo "<button type='button' class='btn btn-default navbar-btn navbar-left' onclick='window.location.href=\"../products/read\"'><span class='glyphicon glyphicon-tag'></span></button>";
-            echo "<p class='navbar-text'>Signed in as ".$_SESSION['loggedUser']->name."</p>";
+            echo "<p class='navbar-text'>Signed in as ".$_SESSION['loggedUser']->name." with a balance of <b>".$_SESSION['loggedUser']->balance."$</b></p>";
             echo "<button type='button' class='btn btn-default navbar-btn navbar-right' onclick='window.location.href=\"../log/logout\"'>Log out</button>";
         }
         else
@@ -38,13 +38,13 @@
                         <tr>
                             <td><?php echo $product->name; ?></td>
                             <td><?php echo $product->units; ?></td>
-                            <td><?php echo $product->price; ?></td>
+                            <td><?php echo "$".$product->price; ?></td>
                             <td>
                                 <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id; ?>'">
                                     <span class="glyphicon glyphicon-minus-sign"></span>
                                 </button>
                             </td>
-                            <td></td>
+                            <td><?php $total=0; $total=$product->price * $product->units; echo "$".$total ?></td>
                         </tr>
                         <?php endforeach; ?>
                         <td></td>
@@ -53,19 +53,36 @@
                         <td></td>
                         <td>
                             <?php
-                            $total = 0;
-                            foreach($parameters['products'] as $product) {$total = $total + $product->price;}
-                            echo $total;
+                            $grandTotal = 0;
+                            foreach($parameters['products'] as $product) {$grandTotal = $grandTotal + ($product->price * $product->units);}
+                            echo "$<b>".$grandTotal."</b>";
                             ?>
                         </td>
                     </tbody>
                 </table>
             </div>
+        </div>
+        <div class="col-md-3">
             <div class="panel panel-default">
-                <div class="panel-heading"><a class="btn btn-success" href="products/read" role="button">Pay</a></div>
+                <div class="panel-heading">
+                <form role="form" action="pay" method="post">
+                        <label>Shipping Options</label>
+                    <div class="radio">
+                        <label>
+                        <input type="radio" name="optionsRadios" required> Pick up (free)
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                        <input type="radio" name="optionsRadios" required> UPS ($5)
+                        </label>
+                    </div>
+                    <input type="text" name="grandTotal" value="<?php echo $grandTotal; ?>" hidden>
+                    <button type="submit" class="btn btn-success">Pay</button>
+                </form>
+                </div>
             </div>
         </div>
-        <div class="col-md-3"></div>
     </div>
 </div>
 

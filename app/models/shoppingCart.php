@@ -36,4 +36,18 @@ class ShoppingCart
         $this->db->query("DELETE FROM shoppingCart WHERE idProduct = $id");
         return $this->db->countRows();
     }
+
+    public function pay($user)
+    {
+        $id = $user['id'];
+        $balance = $user['balance'];
+        $this->db->query("UPDATE users SET users.balance = '$balance' WHERE users.id = $id");
+        return $this->db->countRows();
+    }
+
+    public function clear($id)
+    {
+        $this->db->query("DELETE FROM shoppingCart WHERE idUser = $id");
+        return $this->db->countRows();
+    }
 }

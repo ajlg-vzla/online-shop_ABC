@@ -44,8 +44,49 @@
                             <tr>
                                 <td><?php echo $product->name ?></td>
                                 <td><?php echo $product->price ?></td>
-                                <td><?php echo $product->rating ?></td>
                                 <td>
+                                    <?php
+                                        if(!empty($_SESSION['loggedUser']))
+                                        {
+                                            foreach($parameters['ratings'] as $rating)
+                                            {
+                                                if($rating->idProduct == $product->id)
+                                                {
+                                                    echo $rating->average;
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                        if(!empty($_SESSION['loggedUser']))
+                                        {
+                                            $rated = false;
+                                            foreach($parameters['ratings'] as $rating)
+                                            {
+                                                if($rating->idProduct == $product->id)
+                                                {
+                                                    $rated = true;
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    $rated = false;
+                                                }
+                                            }
+                                            if($rated)
+                                            {
+                                                echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-up'></span></button>";
+                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-down'></span></button>";
+                                            }
+                                            else
+                                            {
+                                                echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-up'></span></button>";
+                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-down'></span></button>";
+                                            }
+                                        }
+                                    ?>
                                     <button type="button" class="btn btn-default" onclick="window.location.href = 'update/<?php echo $product->id; ?>'">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>

@@ -45,4 +45,18 @@ class ShoppingCartC extends MainC
         $this->shoppingCartModel->delete($id);
         $this->read();
     }
+
+    public function pay()
+    {
+        $newBalance = $_SESSION['loggedUser']->balance - $_REQUEST['grandTotal'];
+        $user =
+        [
+            'id' => $_SESSION['loggedUser']->id,
+            'balance' => $newBalance,
+        ];
+        $this->shoppingCartModel->pay($user);
+        $this->shoppingCartModel->clear($user['id']);
+        $_SESSION['loggedUser']->balance = $newBalance;
+        $this->read();
+    }
 }
