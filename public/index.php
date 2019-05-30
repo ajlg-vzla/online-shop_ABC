@@ -25,7 +25,9 @@ require_once(ENTITIES.'rating.php');
 session_start();
 
 try{
-    Router::route(new Request);
+    $router = new Router();
+    $router->Route(new Request);
+    //Router::route(new Request);
 }catch(Exception $e){
     $controller = new errorC;
     $controller->showError($e->getMessage());
