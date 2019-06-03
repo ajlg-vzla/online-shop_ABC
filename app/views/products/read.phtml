@@ -1,5 +1,5 @@
 <?php include VIEWS . 'header.phtml'; ?>
-    <script>history.pushState(null, '', '<?php echo SITE_PATH; ?>/products/read');    </script>
+<script>history.pushState(null, '', '/products/read');    </script>
     <br>
     <div class="container">
 
@@ -35,7 +35,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
-                            <th>Rating</th>
+                            <?php if(!empty($_SESSION['loggedUser'])) {echo "<th>Rating</th>";} ?>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -44,7 +44,7 @@
                             <tr>
                                 <td><?php echo $product->name ?></td>
                                 <td><?php echo $product->price ?></td>
-                                <td>
+                                <?php if(!empty($_SESSION['loggedUser'])){echo "<td>";} ?>
                                     <?php
                                         if(!empty($_SESSION['loggedUser']))
                                         {
@@ -57,7 +57,7 @@
                                             }
                                         }
                                     ?>
-                                </td>
+                                <?php if(!empty($_SESSION['loggedUser'])){echo "</td>";} ?>
                                 <td>
                                     <?php
                                         if(!empty($_SESSION['loggedUser']))
@@ -113,4 +113,4 @@
         </div>
     </div>
 
-    <?php include VIEWS . 'footer.phtml'; ?>
+    <?php include VIEWS . 'footer.phtml'; ?>	

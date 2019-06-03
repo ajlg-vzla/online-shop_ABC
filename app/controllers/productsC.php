@@ -65,8 +65,7 @@ class ProductsC extends MainC
         [
             'id' => $_REQUEST['id'],
             'name' => $_REQUEST['name'],
-            'price' => $_REQUEST['price'],
-            'rating' => $_REQUEST['rating']
+            'price' => $_REQUEST['price']
         ];
         $this->productModel->updateProduct($product);
         $this->read();

@@ -35,15 +35,14 @@ class Product
         $id     = $product['id'];
         $name   = $product['name'];
         $price  = $product['price'];
-        $rating = $product['rating'];
-        $this->db->query("UPDATE products SET name = '$name', price = $price, rating = $rating WHERE products.id = $id");
+        $this->db->query("UPDATE products SET name = '$name', price = $price WHERE products.id = $id");
         return $this->db->countRows();
     }
 
     public function deleteProduct($product)
     {
         $id     = $product['id'];
-        $this->db->query("DELETE FROM products, ratings_users_products, ratings_products WHERE products.id = $id AND ratings_users_products.idProduct = $id AND ratings_products.idProduct = $id");
+        $this->db->query("DELETE products, ratings_products FROM products INNER JOIN ratings_products ON ratings_products.idProduct = products.id WHERE products.id=$id");
         return $this->db->countRows();
     }
 
