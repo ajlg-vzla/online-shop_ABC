@@ -1,9 +1,17 @@
 <?php include VIEWS . 'header.phtml'; ?>
-<script>history.pushState(null, '', '/online-shop-abc.zz.com.ve/products/read');    </script>
+<!-- <script>history.pushState(null, '', '/products/read');    </script> -->
     <br>
     <div class="container">
+
+    <?php
+        /* if(!empty($_SESSION['loggedUser']))
+            {
+                echo "<div class='masthead'><h3 class='text-muted'>Hello ".$_SESSION['loggedUser']->name."!</h3></div>";
+            } */
+    ?>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
+            <button type='button' class='btn btn-default navbar-btn navbar-left' onclick='window.location.href="../users/create"'><span class='glyphicon glyphicon-plus'></span> <span class='glyphicon glyphicon-user'></span></button>
             <?php
             if(!empty($_SESSION['loggedUser']))
             {
@@ -22,23 +30,21 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><b>Products</b>
-                    <?php if(!empty($_SESSION['loggedUser'])) {echo " Available to add to your shopping cart when logged in!";} ?>
-                    </div>
+                    <div class="panel-heading">Products</div>
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Name</th>
                             <th>Price</th>
                             <?php if(!empty($_SESSION['loggedUser'])) {echo "<th>Rating</th>";} ?>
-                            <!-- <th>Actions</th> -->
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <?php foreach($parameters['products'] as $product) : ?>
                             <tr>
                                 <td><?php echo $product->name ?></td>
-                                <td><?php echo "<b>$". $product->price . "</b> each " . $product->measureUnit ?></td>
+                                <td><?php echo $product->price ?></td>
                                 <?php if(!empty($_SESSION['loggedUser'])){echo "<td>";} ?>
                                     <?php
                                         if(!empty($_SESSION['loggedUser']))
@@ -47,7 +53,7 @@
                                             {
                                                 if($rating->idProduct == $product->id)
                                                 {
-                                                    echo $rating->rating;
+                                                    echo $rating->average;
                                                 }
                                             }
                                         }
@@ -72,32 +78,22 @@
                                             }
                                             if($rated)
                                             {
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/1/".$product->id."\"' disabled>1</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/2/".$product->id."\"' disabled>2</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/3/".$product->id."\"' disabled>3</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/4/".$product->id."\"' disabled>4</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/5/".$product->id."\"' disabled>5</button>";
-                                                /* echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-up'></span></button>";
-                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-down'></span></button>"; */
+                                                echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-up'></span></button>";
+                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"' disabled><span class='glyphicon glyphicon-thumbs-down'></span></button>";
                                             }
                                             else
                                             {
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/1/".$product->id."\"'>1</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/2/".$product->id."\"'>2</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/3/".$product->id."\"'>3</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/4/".$product->id."\"'>4</button> ";
-                                                echo "<button type='button' class='btn btn-success btn-xs' onclick='window.location.href = \"rate/5/".$product->id."\"'>5</button>";
-                                                /* echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-up'></span></button>";
-                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-down'></span></button>"; */
+                                                echo "<button type='button' class='btn btn-success btn-sm' onclick='window.location.href = \"thumbsUp/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-up'></span></button>";
+                                                echo "<button type='button' class='btn btn-danger btn-sm' onclick='window.location.href = \"thumbsDown/".$product->id."\"'><span class='glyphicon glyphicon-thumbs-down'></span></button>";
                                             }
                                         }
                                     ?>
-                                    <!-- <button type="button" class="btn btn-default" onclick="window.location.href = 'update/<?php echo $product->id; ?>'">
+                                    <button type="button" class="btn btn-default" onclick="window.location.href = 'update/<?php echo $product->id; ?>'">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                     <button type="button" class="btn btn-default" onclick="window.location.href = 'delete/<?php echo $product->id; ?>'">
                                         <span class="glyphicon glyphicon-minus-sign"></span>
-                                    </button> -->
+                                    </button>
                                     <?php
                                     if(!empty($_SESSION['loggedUser']))
                                     {
@@ -111,9 +107,9 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- <button type="button" class="btn btn-default" onclick="window.location.href = 'create';">
+                <button type="button" class="btn btn-default" onclick="window.location.href = 'create';">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                </button> -->
+                </button>
             </div>
         </div>
     </div>

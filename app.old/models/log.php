@@ -1,6 +1,6 @@
 <?php
 
-class Log
+class log
 {
     public function __construct()
     {

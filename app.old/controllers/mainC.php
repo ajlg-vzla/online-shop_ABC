@@ -1,7 +1,5 @@
 <?php
 
-//  main controller, used with 'extend' on every other controller, here we set up and link the
-//  views and models to its designated controller
 class MainC
 {
     public function model($model)
@@ -18,7 +16,8 @@ class MainC
         }
         else
         {
-            require_once(VIEWS.'error/read.phtml');
+            require_once(VIEWS.'error.phtml');
+            die('Requested view does not exists.');
         }
     }
 }

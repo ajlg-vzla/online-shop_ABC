@@ -1,6 +1,5 @@
 <?php
 
-//  setting the route to show on the web browser
 class Router
 {
     public function Route(Request $request)

@@ -4,17 +4,13 @@ class Rating
 {
     public $idUser;
     public $idProduct;
-    public $thumbsUp;
-    public $thumbsDown;
-    public $average;
 
-    public function __construct(int $idUser, int $idProduct, int $thumbsUp, int $thumbsDown, int $average)
+    public function __construct(int $idUser, int $idProduct, int $rating, int $timesRated)
     {
         $this->idUser = $idUser;
         $this->idProduct = $idProduct;
-        $this->thumbsUp = $thumbsUp;
-        $this->thumbsDown = $thumbsDown;
-        $this->average = $average;
+        $this->rating = $rating;
+        $this->timesRated = $timesRated;
     }
 
     public function getIdUser()
@@ -27,21 +23,16 @@ class Rating
         return $this->idProduct;
     }
 
-    public function getThumbsUp()
+    public function getRating()
     {
-        return $this->thumbsUp;
+        return $this->rating;
     }
 
-    public function getThumbsDown()
+    public function getTimesRated()
     {
-        return $this->thumbsDown;
+        return $this->timesRated;
     }
-
-    public function getAverage()
-    {
-        return $this->average;
-    }
-
+    
     public function setIdUser($idUser)
     {
         $this->idUser = $idUser;
@@ -52,18 +43,13 @@ class Rating
         $this->idProduct = $idProduct;
     }
 
-    public function setThumbsUp($thumbsUp)
+    public function setRating($rating)
     {
-        $this->thumbsUp = $thumbsUp;
+        $this->rating = $rating;
     }
 
-    public function setThumbsDown($thumbsDown)
+    public function setTimesRated($timesRated)
     {
-        $this->thumbsDown = $thumbsDown;
-    }
-
-    public function setAverage($average)
-    {
-        $this->average = $average;
+        $this->timesRated = $timesRated;
     }
 }

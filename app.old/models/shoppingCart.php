@@ -33,7 +33,7 @@ class ShoppingCart
 
     public function delete($id)
     {
-        $this->db->query("DELETE FROM shoppingcartWHERE idProduct = $id");
+        $this->db->query("DELETE FROM shoppingcart WHERE idProduct = $id");
         return $this->db->countRows();
     }
 

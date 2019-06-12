@@ -13,14 +13,14 @@ require_once(SITE_PATH.'app'.DIRECTORY_SEPARATOR.'handlers/router.php');
 require_once(SITE_PATH.'app'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'connection.php');
 require_once(SITE_PATH.'app'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'credentials.php');
 
-require_once(CONTROLLERS.'mainC.php');
-require_once(CONTROLLERS.'homeC.php');
-require_once(CONTROLLERS.'productsC.php');
-require_once(CONTROLLERS.'errorC.php');
+require_once(CONTROLLERS.'MainC.php');
+require_once(CONTROLLERS.'ProductsC.php');
+require_once(CONTROLLERS.'ErrorsC.php');
 
-require_once(ENTITIES.'user.php');
-require_once(ENTITIES.'shoppingCart.php');
-require_once(ENTITIES.'rating.php');
+require_once(ENTITIES.'User.php');
+require_once(ENTITIES.'ShoppingCart.php');
+require_once(ENTITIES.'Rating.php');
+require_once(ENTITIES.'Product.php');
 
 session_start();
 
@@ -29,6 +29,6 @@ try{
     $router->Route(new Request);
     //Router::route(new Request);
 }catch(Exception $e){
-    $controller = new errorC;
+    $controller = new ErrorsC;
     $controller->showError($e->getMessage());
 }

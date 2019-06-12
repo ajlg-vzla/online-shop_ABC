@@ -4,18 +4,18 @@ class ShoppingCartC extends MainC
 {
     public function __construct()
     {
-        $this->shoppingCartModel = $this->model('ShoppingCartM');
+        $this->shoppingCartModel = $this->model('ShoppingCart');
     }
 
-    /* public function create($productId)
+    public function create($productId)
     {
         $shoppingCart = $this->shoppingCartModel->create($productId);
         $parameters = 
         [
             'product' => $shoppingCart
         ];
-        $this->view('products/read');
-    } */
+        $this->view('shoppingCart/create', $parameters);
+    }
 
     public function saveCreate()
     {
